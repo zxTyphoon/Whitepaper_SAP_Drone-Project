@@ -1,0 +1,53 @@
+\chapter{Conclusion}
+\label{conclusion}
+
+
+\section{Findings}
+The \ac{ASTRID} project successfully explored the potential of integrating Large Language Models (\acp{LLM}) for drone control, specifically through voice commands. 
+The two Proofs of Concept (\acp{PoC}) demonstrated promising results in both drone command generation and real-time video streaming.
+
+The first \ac{PoC} showcased the feasibility of using few-shot prompting to generate precise drone commands based on natural language instructions. 
+The prompt engineering process, combined with iterative refinements, enabled the \ac{LLM} to produce feasible and actionable commands, even for complex movements. 
+This work opens up possibilities for more intuitive human-drone interaction through voice control, allowing users to issue commands in a natural and flexible manner.
+
+The second \ac{PoC} addressed the challenge of real-time video streaming from the drone. 
+By transitioning from YouTube to a locally hosted NGINX \ac{RTMP} server, significant improvements in latency were achieved, reducing the delay to just 1-2 seconds. 
+This is a crucial advancement for applications where real-time video feedback is essential, such as in surveillance and remote monitoring.
+
+\section{Next Steps}
+Despite the successes, several areas remain for further development and refinement. The next steps for the \ac{ASTRID} project include:
+
+\begin{itemize}
+    \item \textbf{Enhancing Command Generation}:
+    While the current \ac{LLM}-generated command sequences are functional, further refinement is needed to handle even more complex scenarios, such as unpredictable environmental conditions or emergency maneuvers. 
+    This can be achieved by introducing additional context into the prompts and expanding the command set.
+
+    \item \textbf{Utilizing and Deploying Command Generation in Real-world Scenarios}:
+        Testing and deploying the command generation system in real-world scenarios will be crucial to validate its performance and reliability. 
+        This involves conducting field tests where the system is used in various operational environments to ensure it can handle diverse and unpredictable conditions. 
+        This includes testing under various weather conditions, with different drone models, and in complex operational settings like surveillance and delivery. 
+        Feedback from these tests will be invaluable for refining the system and addressing any limitations or challenges that arise.
+    
+    \item \textbf{Integration with other Systems}:
+    Future work should include integrating the \ac{ASTRID} system with other drone control frameworks and software platforms, enabling seamless interoperability across different devices and use cases. 
+    This may involve supporting a wider range of drone models, extending the system's compatibility beyond just DJI drones.
+    
+    \item \textbf{Advanced Real-time Video Streaming}:
+    Although the NGINX \ac{RTMP} server reduced latency majorly, further testing is needed to determine the optimal encoding settings and server configurations for varied network conditions. 
+    Additionally, evaluating the impact of different hardware configurations, such as dedicated servers or edge devices, will help improve streaming performance in larger-scale applications.
+    
+    \item \textbf{Exploring Edge Computing for Low-Latency Processing}:
+    To further reduce latency, exploring edge computing solutions for processing drone commands and video streams could be beneficial. 
+    By offloading some processing to local devices, it may be possible to achieve even lower latency and improve the overall responsiveness of the system.
+
+    \item \textbf{Transcoding from RTMP to HLS}:
+    Another potential enhancement is the ability to trans-code \ac{RTMP} streams to \ac{HLS} using the NGINX server. 
+    This would enable more flexible and adaptive streaming options, as \ac{HLS} is widely supported across various devices and platforms. 
+    Implementing this feature would involve configuring the NGINX server to transcode the incoming \ac{RTMP} stream into HLS segments, 
+    allowing for adaptive bitrate streaming and improved compatibility with different viewing devices.
+
+\end{itemize}
+
+In conclusion, the \ac{ASTRID} project lays a strong foundation for voice-controlled drone operations and real-time video streaming, opening the door to more intuitive and efficient drone applications. 
+As the system continues to evolve, its potential for use in industries like surveillance, remote inspection, and emergency response holds great promise. 
+With further development and real-world testing, \ac{ASTRID} could lead to a new generation of autonomous drones that respond seamlessly to voice commands, with minimal latency and enhanced operational capabilities.

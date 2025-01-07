@@ -1,0 +1,21 @@
+\chapter{Introduction}
+\label{introduction}
+\nocite{*}
+
+\section{Background}
+This document outlines the outcomes of the development of two \acp{PoC} as part of the \ac{ASTRID} project at SAP Labs India. \ac{ASTRID}, an initiative spearheaded by the Innovations Team, 
+aims to leverage \acp{LLM} to enable intuitive drone control via voice commands. The \acp{PoC} presented here tackle key challenges in realizing this ambitious vision.
+
+The first \ac{PoC} investigates the use of few-shot prompting to generate complex and accurate drone command sequences based on user input. 
+By integrating PyGame for simulation, this \ac{PoC} demonstrates the potential of refining prompts to generate precise and actionable instructions for drone movement and behavior.
+
+The second \ac{PoC} addresses the critical issue of real-time video streaming from drones. Initially, YouTube was utilized for streaming, but this solution introduced significant latency, often exceeding 10 seconds. 
+To overcome this limitation, an NGINX \ac{RTMP} server was implemented, resulting in a substantial reduction of latency to approximately 1-2 seconds, thus providing a more responsive and immersive experience.
+
+These \acp{PoC} offer valuable insights into the practical application of voice-controlled drones and set the foundation for future developments in this field, 
+bringing us closer to integrating \ac{LLM}-powered drones into real-world use cases.
+
+\section{Preread}
+Before embarking on these projects, I reviewed essential resources to ensure a strong technical foundation. These included the DJI user manual and the DJI SDK documentation, 
+which provided crucial insights into drone operation and control. Additionally, I explored various blog posts and articles detailing attempts to optimize \ac{RTMP} streaming for similar use cases, 
+helping to inform the decisions made during the implementation phase.
