@@ -50,6 +50,86 @@ Initially, the \ac{LLM} used for few-shot prompting was GPT-4o-mini, but it was 
 Additionally, system prompts were refined to ensure that the \ac{LLM} could produce precise and actionable instructions for drone movement and behavior. 
 The final iteration of the system prompt, as shown in the code snippet \ref{lst:prompt_engineering}, ensured the required accuracy.
 
+\subsection{PyGame Simulation: Visualization of a simple command}
+To better understand the behavior of the simulated drone, a series of screenshots were taken during the execution of various commands. 
+These images highlight the initial setup, the command interface, and the results of executing a single movement instruction.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/sim_pos_start.jpeg}
+    \caption{Initial position of the drone in the PyGame simulation. The drone is stationary, and no commands have been entered yet.}
+    \label{fig:sim_pos_start}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/sim_command_forward.jpeg}
+    \caption{Chatbox interaction, the command ``fly forward 1 meter'' is entered}
+    \label{fig:sim_command_forward}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/response_forward.jpeg}
+    \caption{\ac{LLM} response to the ``fly forward 1 meter'' command. The \ac{LLM} outputs a chain of 10 ``Go Front'' commands since each command moves the drone by 10 cm.}
+    \label{fig:response_forward}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/sim_pos_forward.jpeg}
+    \caption{Resulting position of the drone after executing the command chain. The drone has moved 1 meter forward.}
+    \label{fig:sim_pos_forward}
+\end{figure}
+
+These visualizations demonstrate how the simulation progresses from an initial state to the execution of a movement command, 
+providing insights into the \ac{LLM}'s effectiveness in generating actionable drone instructions.
+
+\subsection{PyGame Simulation: Visualization of a Complex Command}
+To further demonstrate the capabilities of the PyGame simulation with the latest iteration of the system prompt, a more complex command was executed: instructing the drone to fly in a circle with the radius 50 cm. 
+This command was selected to test the system's ability to handle scenarios that go beyond simple chains of commands, such as chains of solely moving in a direction or turning, 
+which are insufficient for real-world applications.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/sim_command_circle.jpeg}
+    \caption{Chatbox interaction, the command ``fly in a circle with the radius 50 cm'' is entered.}
+    \label{fig:sim_command_circle}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/response_circle.jpeg}
+    \caption{\ac{LLM} response to the ``fly in a circle with the radius 50 cm'' command. The response contains a sequence of repeated ``Go Front'' and ``Turn Right'' commands to approximate a circular path.}
+    \label{fig:response_circle}
+\end{figure}
+
+One part of the system prompt (\ref{lst:prompt_engineering}) includes instructions specifically tailored for generating a circle trajectory. As shown in the snippet (\ref{lst:circle_instructions}), 
+these instructions guide the \ac{LLM} in calculating the necessary steps to approximate a circle of any size while adhering to the drone's operational constraints. 
+These constraints include moving in 10 cm increments and turning in 30-degree steps, ensuring the generated commands are both feasible and precise.
+
+
+\begin{lstlisting}[caption={Prompt Engineering Circle Instructions}, label={lst:circle_instructions}]
+"Circle Instructions:\n"
+"1. For a circle with radius n cm, calculate the circumference using the formula C = 2 * pi * n, where n is the radius.\n"
+"2. The drone can only move forward in increments of 10 cm, so round the forward movement to the nearest 10 cm to fit the circumference.\n"
+"3. Divide the circle into 12 equal segments of 30 degrees each (to complete 360 degrees). For each segment, move forward by a distance proportional to the radius.\n"
+"4. The distance moved forward per segment can be calculated by dividing the circle's circumference by 12 (the number of 30-degree segments). Since the drone moves in 10 cm increments, round the distance to the nearest 10 cm.\n"
+"   - For example, if the circumference is 628 cm, the drone moves approximately 52 cm per segment (rounded to the nearest 10 cm, which is 50 cm). This would mean the drone moves forward 5 times (10 cm each) in each 30-degree turn.\n"
+"5. Repeat the movement and rotation steps 12 times to approximate the circle.\n"
+"6. Example: For a circle with radius 100 cm (circumference = 628 cm), the drone would move forward 5 times (10 cm per step) for each of the 12 segments, turning right 30 degrees after each movement. The sequence of commands would look like this: 'Go Front, Go Front, Go Front, Go Front, Go Front, Turn Right, Go Front, Go Front, Go Front, Go Front, Go Front, Turn Right, ...' (repeat for 12 steps).\n"
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/sim_pos_circle.jpeg}
+    \caption{Resulting position of the drone after executing the command sequence. Due to rounding, the drone ends up slightly off its starting position, 3 cm east and 6 cm north.}
+    \label{fig:sim_pos_circle}
+\end{figure}
+
+The drone successfully completes the circle using the calculated steps, showcasing the \ac{LLM}'s ability to generate precise and actionable commands for complex tasks. 
+While minor deviations occur due to rounding errors, the system prompt ensures that the \ac{LLM} produces commands that are both feasible and as accurate as possible within the constraints of the drone's movement capabilities. 
+This demonstrates the robustness of the prompt engineering in enabling the \ac{LLM} to handle complex real-world scenarios.
+
 \section{Implementation: Real-Time Video Streaming}
 \subsection{NGINX RTMP Server for Video Streaming}
 The second \ac{PoC} aimed to improve the real-time video streaming experience by reducing latency, transitioning from YouTube to a local NGINX \ac{RTMP} server. 

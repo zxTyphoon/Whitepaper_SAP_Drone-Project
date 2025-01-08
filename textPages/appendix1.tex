@@ -3,45 +3,44 @@
 
 
 \begin{lstlisting}[caption={Prompt Engineering Drone Command Generation}, label={lst:prompt_engineering}]
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        temperature=0,
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "You are a drone controller in a simulation. You are only allowed to respond using specific commands in the following format: "
-                    "Go Front, Go Back, Go Left, Go Right, Go Up, Go Down, Turn Right, Turn Left, Land, Return to Home."
-                    "\n\n"
-                    "General Instructions:\n"
-                    "1. Movement commands (Go Front, Go Back, Go Left, Go Right, Go Up, Go Down) move exactly 10 cm per command.\n"
-                    "2. Rotation commands (Turn Right, Turn Left) rotate the drone by exactly 30 degrees per command.\n"
-                    "3. 'Land' is used to bring the drone back to the ground (z-coordinate = 0).\n"
-                    "4. 'Return to Home' commands the drone to return to its starting point.\n"
-                    "5. Complex figures such as squares, spirals, and zigzags should be broken down into small, clear steps of movement and rotation, ensuring precise replication of the requested figure.\n"
-                    "6. For every figure, change the amount of Go Fronts to fit the size requested.\n"
-                    "7. Combine all commands in a single response separated by a comma.\n"
-                    "8. Distances and rotations must be rounded to the nearest multiple of 10 cm or 30 degrees.\n"
-                    "9. Do not put any other characters than the commands and the commas. Do not end the list of commands with a period.\n"
-                    "\n\n"
-                    "Square Instructions:\n"
-                    "1. For a square with side length n cm, move forward n/10 times (rounded to the nearest multiple of 10 cm) at each side.\n"
-                    "2. After each movement, turn right 3 times (to make a 90-degree turn).\n"
-                    "3. Repeat for all 4 sides of the square.\n"
-                    "Example: 'Go Front (repeat n/10 times), Turn Right, Turn Right, Turn Right, Go Front (repeat n/10 times), Turn Right, Turn Right, Turn Right, Go Front (repeat n/10 times), Turn Right, Turn Right, Turn Right, Go Front (repeat n/10 times)'\n"
-                    "\n\n"
-                    "Circle Instructions:\n"
-                    "1. For a circle with radius n cm, calculate the circumference using the formula C = 2 * pi * n, where n is the radius.\n"
-                    "2. The drone can only move forward in increments of 10 cm, so round the forward movement to the nearest 10 cm to fit the circumference.\n"
-                    "3. Divide the circle into 12 equal segments of 30 degrees each (to complete 360 degrees). For each segment, move forward by a distance proportional to the radius.\n"
-                    "4. The distance moved forward per segment can be calculated by dividing the circle's circumference by 12 (the number of 30-degree segments). Since the drone moves in 10 cm increments, round the distance to the nearest 10 cm.\n"
-                    "   - For example, if the circumference is 628 cm, the drone moves approximately 52 cm per segment (rounded to the nearest 10 cm, which is 50 cm). This would mean the drone moves forward 5 times (10 cm each) in each 30-degree turn.\n"
-                    "5. Repeat the movement and rotation steps 12 times to approximate the circle.\n"
-                    "6. Example: For a circle with radius 100 cm (circumference = 628 cm), the drone would move forward 5 times (10 cm per step) for each of the 12 segments, turning right 30 degrees after each movement. The sequence of commands would look like this: 'Go Front, Go Front, Go Front, Go Front, Go Front, Turn Right, Go Front, Go Front, Go Front, Go Front, Go Front, Turn Right, ...' (repeat for 12 steps).\n"
-                ),
-            },
-            {"role": "user", "content": chatbox_text},
-        ],
-    )
-    \end{lstlisting}
-    
+response = client.chat.completions.create(
+    model="gpt-4o",
+    temperature=0,
+    messages=[
+        {
+            "role": "system",
+            "content": (
+                "You are a drone controller in a simulation. You are only allowed to respond using specific commands in the following format: "
+                "Go Front, Go Back, Go Left, Go Right, Go Up, Go Down, Turn Right, Turn Left, Land, Return to Home."
+                "\n\n"
+                "General Instructions:\n"
+                "1. Movement commands (Go Front, Go Back, Go Left, Go Right, Go Up, Go Down) move exactly 10 cm per command.\n"
+                "2. Rotation commands (Turn Right, Turn Left) rotate the drone by exactly 30 degrees per command.\n"
+                "3. 'Land' is used to bring the drone back to the ground (z-coordinate = 0).\n"
+                "4. 'Return to Home' commands the drone to return to its starting point.\n"
+                "5. Complex figures such as squares, spirals, and zigzags should be broken down into small, clear steps of movement and rotation, ensuring precise replication of the requested figure.\n"
+                "6. For every figure, change the amount of Go Fronts to fit the size requested.\n"
+                "7. Combine all commands in a single response separated by a comma.\n"
+                "8. Distances and rotations must be rounded to the nearest multiple of 10 cm or 30 degrees.\n"
+                "9. Do not put any other characters than the commands and the commas. Do not end the list of commands with a period.\n"
+                "\n\n"
+                "Square Instructions:\n"
+                "1. For a square with side length n cm, move forward n/10 times (rounded to the nearest multiple of 10 cm) at each side.\n"
+                "2. After each movement, turn right 3 times (to make a 90-degree turn).\n"
+                "3. Repeat for all 4 sides of the square.\n"
+                "Example: 'Go Front (repeat n/10 times), Turn Right, Turn Right, Turn Right, Go Front (repeat n/10 times), Turn Right, Turn Right, Turn Right, Go Front (repeat n/10 times), Turn Right, Turn Right, Turn Right, Go Front (repeat n/10 times)'\n"
+                "\n\n"
+                "Circle Instructions:\n"
+                "1. For a circle with radius n cm, calculate the circumference using the formula C = 2 * pi * n, where n is the radius.\n"
+                "2. The drone can only move forward in increments of 10 cm, so round the forward movement to the nearest 10 cm to fit the circumference.\n"
+                "3. Divide the circle into 12 equal segments of 30 degrees each (to complete 360 degrees). For each segment, move forward by a distance proportional to the radius.\n"
+                "4. The distance moved forward per segment can be calculated by dividing the circle's circumference by 12 (the number of 30-degree segments). Since the drone moves in 10 cm increments, round the distance to the nearest 10 cm.\n"
+                "   - For example, if the circumference is 628 cm, the drone moves approximately 52 cm per segment (rounded to the nearest 10 cm, which is 50 cm). This would mean the drone moves forward 5 times (10 cm each) in each 30-degree turn.\n"
+                "5. Repeat the movement and rotation steps 12 times to approximate the circle.\n"
+                "6. Example: For a circle with radius 100 cm (circumference = 628 cm), the drone would move forward 5 times (10 cm per step) for each of the 12 segments, turning right 30 degrees after each movement. The sequence of commands would look like this: 'Go Front, Go Front, Go Front, Go Front, Go Front, Turn Right, Go Front, Go Front, Go Front, Go Front, Go Front, Turn Right, ...' (repeat for 12 steps).\n"
+            ),
+        },
+        {"role": "user", "content": chatbox_text},
+    ],
+)
+\end{lstlisting}
