@@ -3,19 +3,21 @@
 \nocite{*}
 
 \section{Background}
-This document outlines the outcomes of the development of two \acp{PoC} as part of the \ac{ASTRID} project at SAP Labs India. \ac{ASTRID}, an initiative spearheaded by the Innovations Team, 
-aims to leverage \acp{LLM} to enable intuitive drone control via voice commands. The \acp{PoC} presented here tackle key challenges in realizing this ambitious vision.
+This document details the development of two \acp{PoC} as part of the \ac{ASTRID} project at SAP Labs India. \ac{ASTRID}, an initiative driven by the Innovations Team, 
+seeks to explore the potential of \acp{LLM} in enabling seamless and intuitive voice-based control for drones. 
 
-The first \ac{PoC} investigates the use of few-shot prompting to generate complex and accurate drone command sequences based on user input. 
-By integrating PyGame for simulation, this \ac{PoC} demonstrates the potential of refining prompts to generate precise and actionable instructions for drone movement and behavior.
+Modern drones offer sophisticated capabilities, yet their control interfaces often require significant expertise, limiting their accessibility for non-technical users. 
+By leveraging advancements in \acp{LLM}, the \ac{ASTRID} project aims to simplify drone operation by enabling natural language voice commands. This vision has applications across domains such as surveillance, remote monitoring, and emergency response.
 
-The second \ac{PoC} addresses the critical issue of real-time video streaming from drones. Initially, YouTube was utilized for streaming, but this solution introduced significant latency, often exceeding 10 seconds. 
-To overcome this limitation, an NGINX \ac{RTMP} server was implemented, resulting in a substantial reduction of latency to approximately 1-2 seconds, thus providing a more responsive and immersive experience.
+The project's practical implementation was tested on a DJI Mini 3 Pro drone, a compact and versatile drone known for its advanced capabilities, including high-quality video capture and stability. 
+The drone connects to a dedicated controller, which is paired with a mobile device running the DJI app. This setup provides both control inputs and real-time video feedback, forming the base infrastructure for the integration of voice-based operations and low-latency streaming solutions.
 
-These \acp{PoC} offer valuable insights into the practical application of voice-controlled drones and set the foundation for future developments in this field, 
-bringing us closer to integrating \ac{LLM}-powered drones into real-world use cases.
+The \acp{PoC} developed within this project aim to address key challenges in achieving this vision, laying the groundwork for future enhancements in voice-controlled drone technology.
 
 \section{Preread}
-Before embarking on these projects, I reviewed essential resources to ensure a strong technical foundation. These included the DJI user manual and the DJI SDK documentation, 
-which provided crucial insights into drone operation and control. Additionally, I explored various blog posts and articles detailing attempts to optimize \ac{RTMP} streaming for similar use cases, 
-helping to inform the decisions made during the implementation phase.
+To ensure a robust understanding of the technical aspects required for this project, I reviewed foundational materials, including the DJI user manual and the DJI SDK documentation. 
+These resources provided critical insights into drone hardware capabilities, control systems, and the SDK features available for integration. 
+
+In addition to official documentation, I consulted a range of blog posts and technical articles exploring \ac{RTMP} streaming optimization. 
+These secondary resources helped shape the approach to minimizing latency and enhancing the real-time responsiveness of drone video feeds. 
+This preparatory work informed the design and implementation of the \acp{PoC}, ensuring alignment with the project's goals.
