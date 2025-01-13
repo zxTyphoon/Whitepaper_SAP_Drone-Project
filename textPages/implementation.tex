@@ -12,7 +12,9 @@ This methodology involved designing a set of adaptable prompts capable of handli
 \subsection{Prompt Engineering}
 Prompt engineering focused on defining clear parameters for movement and rotation. The drone commands followed predefined formats such as "Go Front", "Turn Left", "Go Right", and "Go Up", 
 with the goal of translating user requests for movement into a chain of executable instructions. 
-Key challenges included refining the prompts to ensure that the \ac{LLM} generated commands that were both accurate and feasible, given the constraints of the drone SDK.
+All "Go" commands were designed to move the drone by 10 cm per step, and all "Turn" commands adjusted the drone's orientation by 30 degrees per step.
+
+Key challenges included refining the prompts to ensure that the \ac{LLM} generated commands that were both accurate and feasible, given the constraints of the drone \ac{SDK}.
 
 For instance, a simple prompt like "Move forward 50 cm and then turn left 90 degrees" would result in a sequence of commands like:  
 \texttt{Go Front, Go Front, Go Front, Go Front, Go Front, Turn Left, Turn Left, Turn Left}.  
@@ -36,7 +38,7 @@ The implementation of the \ac{RTMP} server involved several key steps:
 \section{Implementation: Drone Command Generation}
 \subsection{Few-shot Prompting in PyGame}
 The first \ac{PoC} was implemented in a simulation environment using PyGame, where the \ac{LLM}-generated commands could be executed in real-time. 
-The simulation employed the same command set as the drone SDK, including basic movement and rotation instructions. 
+The simulation employed the same command set as the drone \ac{SDK}, including basic movement and rotation instructions. 
 The prompts were designed to ensure that the \ac{LLM} could generate commands that were both feasible and precise, considering the drone's movement constraints.
 
 The process involved sending user input to the \ac{LLM} via a chatbot interface, where the \ac{LLM} would respond with a series of commands. 
